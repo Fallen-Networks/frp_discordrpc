@@ -1,6 +1,6 @@
 local WaitTime = 15000 -- How often do you want to update the status (In MS)
 local appid = '737525600595476551' -- Make an application @ https://discordapp.com/developers/applications/ ID can be found there.
-local asset = 'fn' -- Go to https://discordapp.com/developers/applications/APPID/rich-presence/assets
+local asset = 'fallenrp' -- Go to https://discordapp.com/developers/applications/APPID/rich-presence/assets
 
 function SetRP()
     local name = GetPlayerName(PlayerId())
