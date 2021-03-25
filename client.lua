@@ -3,7 +3,6 @@ local appid = '737525600595476551' -- Make an application @ https://discordapp.c
 local asset = 'fallenrp' -- Go to https://discordapp.com/developers/applications/APPID/rich-presence/assets
 local playerCount = #GetActivePlayers()
 
-
 function SetRP()
     local name = GetPlayerName(PlayerId())
     local id = GetPlayerServerId(PlayerId())
