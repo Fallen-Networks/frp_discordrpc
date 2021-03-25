@@ -1,6 +1,8 @@
 local WaitTime = 15000 -- How often do you want to update the status (In MS)
 local appid = '737525600595476551' -- Make an application @ https://discordapp.com/developers/applications/ ID can be found there.
 local asset = 'fallenrp' -- Go to https://discordapp.com/developers/applications/APPID/rich-presence/assets
+local playerCount = #GetActivePlayers()
+
 
 function SetRP()
     local name = GetPlayerName(PlayerId())
@@ -10,7 +12,7 @@ function SetRP()
 	SetDiscordRichPresenceAsset(asset)
 	SetDiscordRichPresenceAssetText('https://discord.gg/YPRKQhW')
 	SetDiscordRichPresenceAssetSmall('fn')
-	SetDiscordRichPresenceAssetSmallText('https://fallen-networks.com')
+	SetDiscordRichPresenceAssetSmallText(playerCount.. " player(s)")
 end
 
 
@@ -25,7 +27,6 @@ Citizen.CreateThread(function()
 		local StreetHash = GetStreetNameAtCoord(x, y, z)
 		local pId = GetPlayerServerId(PlayerId())
 		local pName = GetPlayerName(PlayerId())
-		local playerCount = #GetActivePlayers()
 
 		Citizen.Wait(WaitTime)
 
@@ -35,35 +36,35 @@ Citizen.CreateThread(function()
 			StreetName = GetStreetNameFromHashKey(StreetHash)
 			if IsPedOnFoot(PlayerPedId()) and not IsEntityInWater(PlayerPedId()) then
 				if IsPedSprinting(PlayerPedId()) then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is sprinting down "..StreetName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is sprinting down "..StreetName)
 				elseif IsPedRunning(PlayerPedId()) then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is running down "..StreetName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is running down "..StreetName)
 				elseif IsPedWalking(PlayerPedId()) then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is walking down "..StreetName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is walking down "..StreetName)
 				elseif IsPedStill(PlayerPedId()) then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is standing on "..StreetName.."")
+					SetRichPresence("ID: "..pId.." | "..pName.." is standing on "..StreetName.."")
 				end
 			elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
 				local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
 				if MPH > 50 then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is speeding down "..StreetName.." at "..MPH.."MPH in a "..VehName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is speeding down "..StreetName.." at "..MPH.."MPH in a "..VehName)
 				elseif MPH <= 50 and MPH > 0 then
 					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is cruising down "..StreetName.." at "..MPH.."MPH in a "..VehName)
 				elseif MPH == 0 then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is parked on "..StreetName.." in a "..VehName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is parked on "..StreetName.." in a "..VehName)
 				end
 			elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
 				if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 5.0 then
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is flying over "..StreetName.." in a "..VehName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is flying over "..StreetName.." in a "..VehName)
 				else
-					SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is landed at "..StreetName.." in a "..VehName)
+					SetRichPresence("ID: "..pId.." | "..pName.." is landed at "..StreetName.." in a "..VehName)
 				end
 			elseif IsEntityInWater(PlayerPedId()) then
-				SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is swimming")
+				SetRichPresence("ID: "..pId.." | "..pName.." is swimming")
 			elseif IsPedInAnyBoat(PlayerPedId()) and IsEntityInWater(GetVehiclePedIsUsing(PlayerPedId())) then
-				SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is sailing in a "..VehName)
+				SetRichPresence("ID: "..pId.." | "..pName.." is sailing in a "..VehName)
 			elseif IsPedInAnySub(PlayerPedId()) and IsEntityInWater(GetVehiclePedIsUsing(PlayerPedId())) then
-				SetRichPresence(playerCount.."/32 - ID: "..pId.." | "..pName.." is in a yellow submarine")
+				SetRichPresence("ID: "..pId.." | "..pName.." is in a yellow submarine")
 			end
 		end
 	end
