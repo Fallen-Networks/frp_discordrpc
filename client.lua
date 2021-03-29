@@ -1,6 +1,9 @@
 local WaitTime = 15000 -- How often do you want to update the status (In MS)
 local appid = '737525600595476551' -- Make an application @ https://discordapp.com/developers/applications/ ID can be found there.
 local asset = 'fallenrp' -- Go to https://discordapp.com/developers/applications/APPID/rich-presence/assets
+local ip = '' -- The server's IP, used for the 'Play' Button.
+local discord = 'https://discord.gg/YPRKQhW' -- The Discord server invite, used for AssetText and the 'Join Discord Server' Button
+
 
 function SetRP()
     local name = GetPlayerName(PlayerId())
@@ -8,9 +11,11 @@ function SetRP()
 
     SetDiscordAppId(appid)
 	SetDiscordRichPresenceAsset(asset)
-	SetDiscordRichPresenceAssetText('https://discord.gg/YPRKQhW')
+	SetDiscordRichPresenceAssetText(discord)
 	SetDiscordRichPresenceAssetSmall('fn')
-	SetDiscordRichPresenceAssetSmallText('https://fallen-networks.com')
+	SetDiscordRichPresenceAssetSmallText("https://fallen-networks.com")
+	SetDiscordRichPresenceAction(0, "Play", "fivem://connect/"..ip)
+	SetDiscordRichPresenceAction(1, "Join Discord Server", discord)
 end
 
 
